@@ -1,0 +1,7 @@
+USE iotdb;
+
+CREATE TABLE IF NOT EXISTS LightRecords (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    ldr_value INT,
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

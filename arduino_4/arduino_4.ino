@@ -5,8 +5,12 @@ void setup() {
 }
 
 void loop() {
-  int sensorValue = analogRead(LDR_PIN);
-  Serial.print("LDR Value: ");
-  Serial.println(sensorValue);
-  delay(500);
-} 
+	int ldrValue = analogRead(LDR_PIN);
+	
+	// Printing in a JSON format like {"ldr": value}
+	Serial.print("{\"ldr\":");
+	Serial.print(ldrValue);
+	Serial.println("}");
+	
+	delay(1000);
+}
