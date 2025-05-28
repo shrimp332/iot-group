@@ -1,0 +1,8 @@
+use iotdb;
+
+CREATE TABLE IF NOT EXISTS Records (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    temp FLOAT(6,2),
+    pressure FLOAT(10,4),
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
