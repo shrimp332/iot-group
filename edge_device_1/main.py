@@ -5,7 +5,7 @@ import json
 import time
 import mariadb
 
-ser = serial.Serial('/dev/ttyACM0', 9600, timeout=3)
+ser = serial.Serial('/dev/ttyACM0', 9600, timeout=10)
 
 
 db_config = {
@@ -25,6 +25,9 @@ except Exception as e:
 
 
 def insert_data(temp, pressure):
+    if temp < -998 or pressure < -998:  # If data is read wrong
+        return
+
     cursor.execute(
         "INSERT INTO Records (temp, pressure) VALUES (?,?)",
         (temp, pressure))
@@ -41,9 +44,10 @@ def read_serial():
             return temp, pressure
         except Exception as e:
             print(f"\x1b[31merror={e} data={line}\x1b[0m")
-            time.sleep(1)
+            return -999, -999
     except Exception as e:
         print(f"\x1b[31merror={e}\x1b[0m")
+        return -999, -999
 
 
 def main():
