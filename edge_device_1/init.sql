@@ -1,4 +1,4 @@
-use bmpDB;
+use iotdb;
 
 CREATE TABLE IF NOT EXISTS Records (
     id INT AUTO_INCREMENT PRIMARY KEY,

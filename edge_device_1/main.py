@@ -15,12 +15,21 @@ db_config = {
     'host': '127.0.0.1',
     'user': 'root',
     'password': '1234',
-    'database': 'bmpDB'
+    'database': 'iotdb'
 }
 
 
 def on_connect(client, userdata, flags, rc):
+    client.subscribe("v1/devices/me/attributes")
     print("Connected with result code", rc)
+
+
+def on_message(client, userdata, msg):
+    data = json.loads(msg.payload.decode())
+    if data.get('led'):
+        ser.write("{\"led\": true}\n".encode('utf-8'))
+    else:
+        ser.write("{\"led\": false}\n".encode('utf-8'))
 
 
 THING_TOKEN = os.getenv("A_THING")
@@ -32,6 +41,7 @@ if not THING_TOKEN:
 client = mqtt.Client()
 client.username_pw_set(THING_TOKEN)
 client.on_connect = on_connect
+client.on_message = on_message
 client.connect('mqtt.thingsboard.cloud', 1883, 60)
 client.loop_start()
 
