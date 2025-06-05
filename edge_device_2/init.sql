@@ -1,0 +1,7 @@
+USE iotdb;
+
+CREATE TABLE IF NOT EXISTS HumidityRecord (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    humid INT,
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
